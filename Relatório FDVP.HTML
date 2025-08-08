@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: Análise da Percepção - FDVP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
+        .response-card {
+            background-color: #ffffff;
+            border-left: 5px solid #00A6FB;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .response-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .response-card li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .response-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #00A6FB;
+            font-weight: bold;
+        }
+        /* Estilos para impressão em PDF */
+        @media print {
+            body {
+                background-color: #ffffff;
+                color: #000000;
+                margin: 0;
+            }
+            .container,
+            section {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+            }
+            .response-card {
+                box-shadow: none;
+                border: 1px solid #ccc; /* Mantém uma borda simples para o PDF */
+                margin-bottom: 1rem;
+            }
+            h1, h2, h3 {
+                color: #000000 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            /* Aumenta a altura do gráfico para o layout impresso */
+            .chart-container {
+                height: 500px !important;
+                max-height: none !important;
+                margin-bottom: 2rem;
+            }
+            /* Garante que o canvas seja impresso corretamente */
+            canvas {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#006494] mb-2">Análise da Percepção - Canal FDVP</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Visão consolidada dos dados do canal para identificar pontos fortes e oportunidades de melhoria contínua.</p>
+        </header>
+
+        <main class="space-y-12">
+            
+            <section id="overview" class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#006494] mb-6 text-center">Desempenho do Canal vs. Média Geral</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-1 text-center">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-2">Nota Média do Canal</h3>
+                        <div class="text-7xl font-bold text-[#00A6FB]">9.92</div>
+                        <p class="text-gray-500 mt-2">(Média Geral de todos os canais: 9.12)</p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-center text-gray-600 mb-4">O gráfico compara a performance do canal (barras) com a média geral de todos os canais (linha pontilhada), demonstrando um desempenho excepcional em todas as categorias.</p>
+                        <div class="chart-container h-80 md:h-96">
+                            <canvas id="geralChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="responses">
+                <h2 class="text-3xl font-bold text-[#006494] mb-6 text-center">Respostas Enviadas</h2>
+                <div class="space-y-6">
+                    <div class="response-card">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">O que fazemos muito bem e deve ser preservado?</h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>Visão construtiva, rapidez nas soluções, competição contínua em equipe para ganhar e claro, sensibilidade com a ponta.</li>
+                            </ul>
+                    </div>
+                    <div class="response-card">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Quais aspectos podem ser otimizados?</h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>Continuar desenvolvendo os backups nos canais, para nas ausências termos sempre segurança de que o processo não terá rompimento, devido o tamanho e relevância das equipes. Entendo que isso já está sendo desenvolvido, logo aqui é uma recomendação de continuidade e prontidão com o tema.</li>
+                        </ul>
+                    </div>
+                    <div class="response-card">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Quais características se destacam como diferenciais?</h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>Cordialidade, respeito, beta contínuo, capacidade técnica.</li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="response-card">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Feedback sobre Apuração</h3>
+                            <ul class="text-gray-700 space-y-2">
+                                <li>Acredito que o processo de apuração tem fluído com tranquilidade. Evoluímos muito ao longo do ano, tanto em processos quanto maturidade da equipe, logo, não tenho muito a acrescentar.</li>
+                            </ul>
+                        </div>
+                        <div class="response-card">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Feedback sobre Pagamento</h3>
+                            <ul class="text-gray-700 space-y-2">
+                                <li>Não tenho a acrescentar.</li>
+                            </ul>
+                        </div>
+                        <div class="response-card">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Feedback sobre Governanças Mensais</h3>
+                            <ul class="text-gray-700 space-y-2">
+                                <li>Ao longo do tempo também alinhamos os principais pontos. Hoje, nossas discussões na governança são de melhoria contínua, sem maiores oportunidades. Também, todas às vezes que surgem oportunidades pontuais, atacamos e resolvemos de forma que a pauta sempre seja produtiva e construtiva.</li>
+                            </ul>
+                        </div>
+                        <div class="response-card">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Feedback sobre Dashboards</h3>
+                            <ul class="text-gray-700 space-y-2">
+                                <li>Nada a acrescentar.</li>
+                            </ul>
+                        </div>
+                        <div class="response-card">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Sugestões ou oportunidades de melhoria adicionais</h3>
+                            <ul class="text-gray-700 space-y-2">
+                                <li>Aqui, não vejo como uma oportunidade exatamente, mas uma sugestão para potencializarem a capacidade de entrega com as chegadas de pessoas novas, fortalecendo a integração entre os times da própria diretoria e buscando gerar cada vez mais automatização e transparência de todos os temas que envolvem os canais. Tenho visto grandes evoluções nesse sentido que já trazem resultados positivos para todos nós. Obrigado pela parceria, por estarem sempre abertos, por toda construção e vamos por mais, muito mais!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="analytic-table" class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#006494] mb-6 text-center">Detalhamento Analítico</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Data</th>
+                                <td class="px-6 py-4 text-center">10/07/2025</td>
+                                <td class="px-6 py-4 text-center">01/08/2025</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Grupo</th>
+                                <td class="px-6 py-4 text-center">Promotor</td>
+                                <td class="px-6 py-4 text-center">Promotor</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Satisfação</th>
+                                <td class="px-6 py-4 text-center">9</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Tempo/Prazo</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Aprovações</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Comunicação</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Aprovação (sistemas de aprovação)</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Tempo de Retorno do time de Incentivos</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Resolução de problemas/dúvidas</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Canal de comunicação e Visibildiade</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Processo de Risco Sacado</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Formato da reunião</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Periodicidade da reunião</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Material apresentado</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Geração de Insight e acionáveis</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Clareza dos dados </th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Melhoria Contínua </th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Completude dos dadoss </th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Geração de Insights </th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">Qual o seu grau de confiança com a área de Incentivos?</th>
+                                <td class="px-6 py-4 text-center">-</td>
+                                <td class="px-6 py-4 text-center">10</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <ul class="text-gray-500 space-y-2">
+                        <li>Espaços em branco significam ausencia da resposta.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer class="text-center pt-8 border-t border-gray-200">
+                <p class="text-gray-500">Análise gerada em 04 de Agosto de 2025.</p>
+            </footer>
+        </main>
+    </div>
+    <script>
+        Chart.register(ChartDataLabels);
+        const commonChartOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }, tooltip: {} }, };
+        const colors = { blue: '#00A6FB', darkBlue: '#0582CA', navy: '#006494', red: '#dc3545' };
+        const geralChartLabels = [ 'Satisfação', 'Apuração', 'Pagamento', 'Governanças Mensais', 'Dashboards', 'Confiança' ];
+        const channelChartData = [9.50, 10.00, 10.00, 10.00, 10.00, 10.00];
+        const averageScore = 9.12;
+        new Chart(document.getElementById('geralChart'), {
+            type: 'bar',
+            data: {
+                labels: geralChartLabels,
+                datasets: [{
+                    label: 'Nota do Canal',
+                    data: channelChartData,
+                    backgroundColor: colors.blue,
+                    borderColor: colors.navy,
+                    borderWidth: 1,
+                    order: 2
+                }, {
+                    type: 'line',
+                    label: 'Média Geral de Todos os Canais',
+                    data: Array(geralChartLabels.length).fill(averageScore.toFixed(2)),
+                    borderColor: colors.red,
+                    borderWidth: 2,
+                    fill: false,
+                    pointRadius: 0,
+                    borderDash: [5, 5],
+                    order: 1
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 8,
+                        max: 10,
+                        title: { display: true, text: 'Nota de Avaliação' }
+                    }
+                },
+                plugins: { ...commonChartOptions.plugins, legend: { display: true } }
+            }
+        });
+    </script>
+</body>
+</html>
